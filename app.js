@@ -120,23 +120,35 @@ function updatePrice() {
   finalCents = totalPriceInCents % 100;
 }
 
+var whatsapp = "https://api.whatsapp.com/send?phone=919000000000&text=Order%20details"
+
+function updateWhatsapp(){
+  for (let i = 0; i < items.length; i++ ){
+    if (items[i].quantity != 0){
+      whatsapp+="%20"+ items[i].name + "%20" + items[i].quantity
+    }
+  }
+  whatsapp += "The %20 total %20 amount %20 is %20" + finalDollars + "$ and" + finalCents + "cents"
+}
 
 cartButton.onclick = () => {
+  updateWhatsapp();
   updatePrice();
+  window.open(whatsapp,("blank"))
 
-
-  for (let index = 0; index < items.length; index++) {
-    if (items[index].quantity != 0) {
+  for (let index=0; index < items.length; index++){
+    if (items[index].quantity != 0){
       console.log(
-        "Item name: " +
-          items[index].name +
-          " - Quantity: " +
-          items[index].quantity
+        "Items name:" +
+        items[index].name +
+        "- Quantity: "+
+        items[index].quantity
       );
     }
   }
 
+
   console.log(
-    "The total amount is " + finalDollars + "$ and " + finalCents + " cents"
+    "The total amount is " + finalDollars + "$ and " + finalCents + "cents"
   );
 };
